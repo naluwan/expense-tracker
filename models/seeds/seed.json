@@ -1,0 +1,61 @@
+{
+  "recordSeeds": [
+    {
+      "name": "看電影",
+      "category": "entertainment",
+      "date": "2021-06-01",
+      "amount": 580
+    },
+    {
+      "name": "UBER",
+      "category": "transportation",
+      "date": "2021-06-01",
+      "amount": 200
+    },
+    {
+      "name": "麥當勞",
+      "category": "food",
+      "date": "2021-06-01",
+      "amount": 140
+    },
+    {
+      "name": "買酒精",
+      "category": "housewares",
+      "date": "2021-06-03",
+      "amount": 120
+    },
+    {
+      "name": "元大卡費",
+      "category": "others",
+      "date": "2021-06-08",
+      "amount": 6646
+    }
+  ],
+  "categorySeeds": [
+    {
+      "name": "housewares",
+      "name_cn": "家居物業",
+      "icon": "fas fa-home"
+    },
+    {
+      "name": "transportation",
+      "name_cn": "交通出行",
+      "icon": "fas fa-shuttle-van"
+    },
+    {
+      "name": "entertainment",
+      "name_cn": "休閒娛樂",
+      "icon": "fas fa-grin-beam"
+    },
+    {
+      "name": "food",
+      "name_cn": "餐飲食品",
+      "icon": "fas fa-utensils"
+    },
+    {
+      "name": "others",
+      "name_cn": "其他",
+      "icon": "fas fa-pen"
+    }
+  ]
+}
