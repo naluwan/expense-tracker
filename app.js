@@ -9,6 +9,7 @@ app.set('view engine', 'hbs')
 
 require('./config/mongoose')
 
+app.use(express.static('public'))
 app.use(routes)
 
 

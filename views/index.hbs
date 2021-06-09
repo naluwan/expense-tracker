@@ -1,1 +1,59 @@
-<h1>This will be expense tracker</h1>
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-10">
+      <form action="/filter" method="GET" name="filter-form">
+        <div class="col-8 mx-auto">
+          <select name="category" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
+            <option value="" selected disabled hidden>所有類別</option>
+            <option value="housewares">家居物業</option>
+            <option value="transportation">交通出行</option>
+            <option value="entertainment">休閒娛樂</option>
+            <option value="food">餐飲食品</option>
+            <option value="others">其他</option>
+          </select>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-10">
+          <div class="col-8 d-flex justify-content-between mx-auto">
+            <div class="col-5">
+              <p class="ml-3 mt-5" style="font-size: 2vw;">總金額：</p>
+            </div>
+            <div class="col-3">
+              <p style="font-size: 6vw; color:tomato">{{totalAmount}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="list-group">
+      <div class="row d-flex justify-content-center" id="data-panel">
+        {{#each records}}
+        <div class="col-8">
+          <li class="list-group-item" id="record-item" style="border: none;">
+            <div class="row">
+              <div class="col-1 d-flex align-items-center justify-content-center mx-3"
+                style="opacity: 0.7; color:turquoise">
+                <i class="{{ this.icon }} fa-3x"></i>
+              </div>
+              <div class="col-5 mr-auto">
+                <p style="font-weight: bold; font-size: 30px;">{{ this.name }}</p>
+                <small style="font-size: 18px;">{{ this.date }}</small>
+              </div>
+              <div class="col-2 d-flex justify-content-center align-items-center mx-3">
+                <p style="font-weight: bold; font-size: 30px;">{{ this.amount }}</p>
+              </div>
+            </div>
+          </li>
+        </div>
+        {{/each}}
+      </div>
+    </ul>
+
+
+    <button class="btn col-4 btn-outline-dark my-5" style="color:white; background-color:orange;
+        font-size:xx-large; ">新增支出</button>
+
+  </div>
+</div>
