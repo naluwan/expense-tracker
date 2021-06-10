@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
       const [records, categories] = results
       const amounts = records.map(record => record.amount)
       const totalAmount = amounts.reduce((sum, current) => sum + current, 0)
+
       records.forEach(record => {
-        category = categories.find(category => category.name === record.category)
+        const category = categories.find(category => category.name === record.category)
         record.icon = category.icon
         record.date = getDate(record.date)
       })
