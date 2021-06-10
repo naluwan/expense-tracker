@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row d-flex justify-content-center">
     <div class="col-10">
-      <form action="/filter" method="GET" name="filter-form">
+      <form action="/records/filter" method="GET" name="filter-form">
         <div class="col-8 mx-auto">
           <select name="category" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
             <option value="" selected disabled hidden>所有類別</option>
@@ -46,10 +46,19 @@
                   this.amount
                   }}</p>
               </div>
-              <button class="btn btn-outline-dark btn-secondary" style="font-size:medium; color:white;" id="edit-btn"
-                data-toggle="modal" data-target="#editModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-                data-date="{{ this.date }}" data-category="{{ this.category }}"
-                data-amount="{{ this.amount }}">編輯</button>
+              <button class="btn btn-outline-dark btn-warning my-auto" style="font-size:medium; height:fit-content"
+                id="edit-btn" data-toggle="modal" data-target="#editModal" data-id="{{ this._id }}"
+                data-name="{{ this.name }}" data-date="{{ this.date }}" data-category="{{ this.category }}"
+                data-amount="{{ this.amount }}">
+                編輯
+              </button>
+
+              <button class="btn btn-outline-dark btn-danger mx-auto my-auto"
+                style="font-size:medium; height:fit-content" id="delete-btn" data-toggle="modal"
+                data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
+                data-amount="{{ this.amount }}">
+                刪除
+              </button>
             </div>
           </li>
         </div>
@@ -184,8 +193,34 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-primary" id="save-btn">儲存</button>
+          <button type="submit" class="btn btn-success" id="save-btn">儲存</button>
         </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{!-- delete modal --}}
+<div class="modal fade editModal" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">刪除支出</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>確定刪除<strong id="delete-name">{{ this.name }}</strong>共<strong id="delete-amount">${{ this.amount
+            }}</strong>的支出?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <form action="/records/{{ this._id }}?_method=DELETE" method="post" id="delete-form">
+          <button type="submit" class="btn btn-danger">刪除</button>
+        </form>
+      </div>
       </form>
     </div>
   </div>
