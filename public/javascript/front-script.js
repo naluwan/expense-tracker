@@ -1,10 +1,8 @@
 const records = document.querySelectorAll('#record-item')
 const createBtn = document.querySelector('#create-btn')
 const defaultDate = document.querySelector('#inputDate')
-const totalAmount = document.querySelector('#totalAmount')
-const showAmount = document.querySelector('#showAmount')
-formatAmount(totalAmount)
-formatAmount(showAmount)
+
+formatAmount()
 
 // li background color
 let isPrint = true
@@ -27,7 +25,13 @@ createBtn.addEventListener('click', event => {
 })
 
 //  show , on thousand
-function formatAmount(element) {
+function formatAmount() {
+  const totalAmount = document.querySelector('#totalAmount')
+  const showAmounts = document.querySelectorAll('#showAmount')
   const re = new RegExp("(\\d{1,3})(?=(\\d{3})+(?:$|\\D))", "g");
-  element.innerText = element.innerText.replace(re, '$1,')
+
+  totalAmount.innerText = totalAmount.innerText.replace(re, '$1,')
+  showAmounts.forEach(showAmount => {
+    showAmount.innerText = showAmount.innerText.replace(re, '$1,')
+  })
 }
