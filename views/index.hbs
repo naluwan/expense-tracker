@@ -41,25 +41,34 @@
                 <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
                 <small style="font-size: 14px;">{{ this.date }}</small>
               </div>
-              <div class="col-2 d-flex justify-content-center align-items-center mx-3">
-                <p style="font-weight: bold; font-size: 20px;" id="showAmount">${{ this.amount }}</p>
+              <div class="col-2 d-flex justify-content-center mx-3">
+                <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
+                  this.amount
+                  }}</p>
               </div>
+              <button class="btn btn-outline-dark btn-secondary" style="font-size:medium; color:white;" id="edit-btn"
+                data-toggle="modal" data-target="#editModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
+                data-date="{{ this.date }}" data-category="{{ this.category }}"
+                data-amount="{{ this.amount }}">編輯</button>
             </div>
           </li>
         </div>
         {{/each}}
+        <div class="col-8">
+          <div class="row justify-content-center">
+            {{!-- create modal button --}}
+            <button class="btn col-4 btn-outline-dark my-5" style="color:white; background-color:orange;
+                          font-size:xx-large;" id="create-btn" data-toggle="modal"
+              data-target="#createModal">新增支出</button>
+          </div>
+        </div>
       </div>
     </ul>
-
-    {{!-- modal button --}}
-    <button class="btn col-4 btn-outline-dark my-5" style="color:white; background-color:orange;
-        font-size:xx-large;" id="create-btn" data-toggle="modal" data-target=".createModal">新增支出</button>
-
   </div>
 </div>
 
-{{!-- modal --}}
-<div class="modal fade createModal" id="exampleModalCenter" tabindex="-1" role="dialog"
+{{!-- create modal --}}
+<div class="modal fade createModal" id="createModal" tabindex="-1" role="dialog"
   aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -114,6 +123,68 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
           <button type="submit" class="btn btn-primary">新增</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{{!-- edit modal --}}
+<div class="modal fade editModal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">修改支出</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/records/{{ this._id }}?_method=PUT" method="POST" id="edit-form">
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">名稱</span>
+            </div>
+            <input type="text" class="form-control" name="name" id="modal-name" placeholder="請輸入名稱"
+              aria-label="inputName" aria-describedby="name" required>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="category">類別</label>
+            </div>
+            <select class="custom-select" id="modal-category" name="category" required>
+              <option value="" selected hidden>請選擇</option>
+              <option value="housewares">家居物業</option>
+              <option value="transportation">交通出行</option>
+              <option value="entertainment">休閒娛樂</option>
+              <option value="food">餐飲食品</option>
+              <option value="others">其他</option>
+            </select>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" name="inputDate">日期</span>
+            </div>
+            <input type="date" class="form-control" name="date" id="modal-date" aria-label="inputDate"
+              aria-describedby="inputDate" required>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">金額</span>
+            </div>
+            <input type="number" class="form-control" name="amount" id="modal-amount" placeholder="請輸入金額"
+              aria-label="inputAmount" aria-describedby="inputAmount" required>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" id="save-btn">儲存</button>
         </div>
       </form>
     </div>
