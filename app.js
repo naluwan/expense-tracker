@@ -6,7 +6,7 @@ const hbshelpers = require('handlebars-helpers')
 const multihelpers = hbshelpers()
 const routes = require('./routes')
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 app.engine('hbs', hbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
