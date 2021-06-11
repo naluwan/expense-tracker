@@ -4,7 +4,7 @@
       <form action="/records/filter" method="GET" name="filter-form">
         <div class="col-8 mx-auto">
           <select name="filteredCategory" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
-            <option value="" selected disabled hidden>所有類別</option>
+            <option value="" selected>所有類別</option>
             <option value="housewares" {{#is filteredCategory 'housewares' }} selected{{/is}}>家居物業</option>
             <option value="transportation" {{#is filteredCategory 'transportation' }} selected{{/is}}>交通出行</option>
             <option value="entertainment" {{#is filteredCategory 'entertainment' }} selected{{/is}}>休閒娛樂</option>
@@ -26,56 +26,57 @@
         </div>
       </div>
     </div>
-
-    <ul class="list-group">
-      <div class="row d-flex justify-content-center" id="data-panel">
-        <div class="col-12 d-flex justify-content-center flex-wrap">
-          {{#each records}}
-          <div class="col-8">
-            <li class="list-group-item" id="record-item" style="border: none;">
-              <div class="row">
-                <div class="col-1 d-flex align-items-center justify-content-center mx-3"
-                  style="opacity: 0.7; color:turquoise">
-                  <i class="{{ this.icon }} fa-3x"></i>
-                </div>
-                <div class="col-5 mx-auto">
-                  <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
-                  <small style="font-size: 14px;">{{ this.date }}</small>
-                </div>
-                <div class="col-2 d-flex justify-content-center mx-auto">
-                  <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
-                    this.amount
-                    }}</p>
-                </div>
-                <button class="col-auto btn btn-outline-dark btn-warning my-auto"
-                  style="font-size:medium; height:fit-content" id="edit-btn" data-toggle="modal"
-                  data-target="#editModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-                  data-date="{{ this.date }}" data-category="{{ this.category }}" data-amount="{{ this.amount }}">
-                  編輯
-                </button>
-
-                <button class="col-auto btn btn-outline-dark btn-danger mx-auto my-auto"
-                  style="font-size:medium; height:fit-content" id="delete-btn" data-toggle="modal"
-                  data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-                  data-amount="{{ this.amount }}">
-                  刪除
-                </button>
+  </div>
+  <ul class="list-group">
+    <div class="row d-flex justify-content-center" id="data-panel">
+      {{#each records}}
+      <div class="col-8">
+        <li class="list-group-item" id="record-item" style="border: none;">
+          <div class="row">
+            <div class="col-8 d-flex justify-content-between">
+              <div class="col-1 d-flex align-items-center justify-content-center mx-3"
+                style="opacity: 0.7; color:turquoise">
+                <i class="{{ this.icon }} fa-3x"></i>
               </div>
-            </li>
+              <div class="col-6">
+                <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
+                <small style="font-size: 14px;">{{ this.date }}</small>
+              </div>
+              <div class="col-2 d-flex flex-row justify-content-center">
+                <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
+                  this.amount
+                  }}</p>
+              </div>
+            </div>
+            <div class="col-4 d-flex justify-content-end">
+              <button class="col-5 btn btn-outline-dark btn-info my-auto" style="font-size:medium; height:fit-content"
+                id="edit-btn" data-toggle="modal" data-target="#editModal" data-id="{{ this._id }}"
+                data-name="{{ this.name }}" data-date="{{ this.date }}" data-category="{{ this.category }}"
+                data-amount="{{ this.amount }}">
+                編輯
+              </button>
+
+              <button class="col-5 btn btn-outline-dark btn-danger mx-3 my-auto"
+                style="font-size:medium; height:fit-content" id="delete-btn" data-toggle="modal"
+                data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
+                data-amount="{{ this.amount }}">
+                刪除
+              </button>
+            </div>
           </div>
-          {{/each}}
-        </div>
-        <div class="col-12">
-          <div class="row justify-content-center">
-            {{!-- create modal button --}}
-            <button class="btn col-4 btn-outline-dark my-5" style="color:white; background-color:orange;
-                          font-size:xx-large;" id="create-btn" data-toggle="modal"
-              data-target="#createModal">新增支出</button>
-          </div>
+        </li>
+      </div>
+      {{/each}}
+      <div class="col-10">
+        <div class="row justify-content-center">
+          {{!-- create modal button --}}
+          <button class="btn col-4 btn-outline-dark my-5"
+            style="color:white; background-color:orange; font-size:xx-large;" id="create-btn" data-toggle="modal"
+            data-target="#createModal">新增支出</button>
         </div>
       </div>
-    </ul>
-  </div>
+    </div>
+  </ul>
 </div>
 
 {{!-- create modal --}}
