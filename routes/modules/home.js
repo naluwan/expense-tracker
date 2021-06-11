@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
 
       records.forEach(record => {
         const category = categories.find(category => category.name === record.category)
+        if (!category) return
         record.icon = category.icon
         record.date = getDate(record.date)
       })
