@@ -4,14 +4,17 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const hbshelpers = require('handlebars-helpers')
 const multihelpers = hbshelpers()
+
 const routes = require('./routes')
+require('./config/mongoose')
+
 const app = express()
 const PORT = process.env.PORT || 3000
 
 app.engine('hbs', hbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
-require('./config/mongoose')
+
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
