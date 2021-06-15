@@ -2,17 +2,19 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
-const { getDate } = require('../../public/javascript/functions')
+const { getDate, checkValue, testRegexp } = require('../../public/javascript/functions')
+const re = /^\+?[1-9][0-9]*$/
 
 router.post('/', (req, res) => {
-  const { name, category, date, amount } = req.body
-  Record.create({
-    name,
-    category,
-    date,
-    amount
-  }).then(() => res.redirect('/'))
-    .catch(err => console.log(err))
+  const newRecord = Object.assign({}, req.body)
+
+  if (!checkValue(newRecord) || !testRegexp(re, newRecord.amount)) {
+    res.status(400)
+  } else {
+    Record.create(newRecord)
+      .then(() => res.redirect('/'))
+      .catch(err => console.log(err))
+  }
 })
 
 router.get('/filter', (req, res) => {
@@ -37,15 +39,19 @@ router.put('/:id', (req, res) => {
   const id = req.params.id
   const newRecord = req.body
 
-  return Record.findById(id)
-    .then(record => {
-      record.name = newRecord.name
-      record.category = newRecord.category
-      record.date = newRecord.date
-      record.amount = newRecord.amount
-      return record.save()
-    }).then(() => res.redirect('/'))
-    .catch(err => console.log(err))
+  if (!checkValue(newRecord) || !testRegexp(re, newRecord.amount)) {
+    res.status(400)
+  } else {
+    return Record.findById(id)
+      .then(record => {
+        record.name = newRecord.name
+        record.category = newRecord.category
+        record.date = newRecord.date
+        record.amount = newRecord.amount
+        return record.save()
+      }).then(() => res.redirect('/'))
+      .catch(err => console.log(err))
+  }
 })
 
 router.delete('/:id', (req, res) => {

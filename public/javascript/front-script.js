@@ -1,6 +1,11 @@
 const records = document.querySelectorAll('#record-item')
 const defaultDate = document.querySelector('#inputDate')
 const dataPanel = document.querySelector('#data-panel')
+const confirmCreate = document.querySelector('#confirm-create')
+const errorMessages = document.querySelectorAll('#errorMessage')
+const modalAmount = document.querySelector('#modal-amount')
+const amount = document.querySelector('#amount')
+const modalContents = document.querySelectorAll('.modal-content')
 
 formatAmount()
 
@@ -29,7 +34,6 @@ dataPanel.addEventListener('click', event => {
     const modalName = document.querySelector('#modal-name')
     const modalCategories = document.querySelectorAll('#modal-category option')
     const modalDate = document.querySelector('#modal-date')
-    const modalAmount = document.querySelector('#modal-amount')
     const editForm = document.querySelector('#edit-form')
 
     modalName.value = target.dataset.name
@@ -57,6 +61,24 @@ dataPanel.addEventListener('click', event => {
   }
 })
 
+modalContents.forEach(modalContent => {
+  modalContent.addEventListener('click', event => {
+    const target = event.target
+
+    if (target.matches('#confirm-create')) {
+      checkAmount(amount)
+    }
+
+    if (target.matches('#confirm-save')) {
+      checkAmount(modalAmount)
+    }
+  })
+})
+
+
+
+
+
 //  function
 //  show , on thousand
 function formatAmount() {
@@ -70,4 +92,20 @@ function formatAmount() {
   showAmounts.forEach(showAmount => {
     showAmount.innerText = showAmount.innerText.replace(re, '$1,')
   })
+}
+
+// check amount
+function checkAmount(amount) {
+  if (amount.value <= 0) {
+    errorMessages.forEach(errorMessage => {
+      errorMessage.innerText = '支出金額有誤，請重新輸入!'
+
+      amount.addEventListener('focus', event => {
+        if (event.target) {
+          amount.value = ''
+          errorMessage.innerText = ''
+        }
+      })
+    })
+  }
 }
