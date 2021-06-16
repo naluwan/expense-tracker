@@ -2,19 +2,27 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
-const { getDate, checkValue, testRegexp } = require('../../public/javascript/functions')
-const re = /^\+?[1-9][0-9]*$/
+const { getDate } = require('../../public/javascript/functions')
+const { check } = require('express-validator')
+const checkCreateValid = require('../../modules/checkCreateValid')
+const checkEditValid = require('../../modules/checkEditValid')
+const mongoose = require('mongoose')
 
-router.post('/', (req, res) => {
-  const newRecord = Object.assign({}, req.body)
-
-  if (!checkValue(newRecord) || !testRegexp(re, newRecord.amount)) {
-    res.status(400)
-  } else {
-    Record.create(newRecord)
-      .then(() => res.redirect('/'))
-      .catch(err => console.log(err))
-  }
+router.post('/', [
+  check('name').trim().isLength({ min: 1 }).withMessage('名稱不可為空白，請重新輸入!'),
+  check('date').isISO8601().toDate().withMessage('請照格式選擇日期!'),
+  check('category').trim().isLength({ min: 1 }).withMessage('請選擇支出類別'),
+  check('amount').isInt({ allow_leading_zeroes: false, min: 1 }).withMessage('支出金額有誤，請重新輸入!')
+], checkCreateValid, (req, res) => {
+  const { name, category, date, amount } = req.body
+  Record.create({
+    name,
+    category,
+    date,
+    amount
+  })
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
 })
 
 router.get('/filter', (req, res) => {
@@ -35,23 +43,30 @@ router.get('/filter', (req, res) => {
     }).catch(err => console.log(err))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', [
+  check('name').trim().isLength({ min: 1 }).withMessage('名稱不可為空白，請重新輸入!'),
+  check('date').isISO8601().toDate().withMessage('請照格式選擇日期!'),
+  check('category').trim().isLength({ min: 1 }).withMessage('請選擇支出類別'),
+  check('amount').isInt({ allow_leading_zeroes: false, min: 1 }).withMessage('支出金額有誤，請重新輸入!'),
+  check('id').custom((value, { req }) => {
+    if (!mongoose.Types.ObjectId.isValid(`${value.toString()}`)) {
+      throw new Error('id格式有問題!!')
+    }
+    return true
+  })
+], checkEditValid, (req, res) => {
   const id = req.params.id
   const newRecord = req.body
 
-  if (!checkValue(newRecord) || !testRegexp(re, newRecord.amount)) {
-    res.status(400)
-  } else {
-    return Record.findById(id)
-      .then(record => {
-        record.name = newRecord.name
-        record.category = newRecord.category
-        record.date = newRecord.date
-        record.amount = newRecord.amount
-        return record.save()
-      }).then(() => res.redirect('/'))
-      .catch(err => console.log(err))
-  }
+  return Record.findById(id)
+    .then(record => {
+      record.name = newRecord.name
+      record.category = newRecord.category
+      record.date = newRecord.date
+      record.amount = newRecord.amount
+      return record.save()
+    }).then(() => res.redirect('/'))
+    .catch(err => console.log(err))
 })
 
 router.delete('/:id', (req, res) => {
