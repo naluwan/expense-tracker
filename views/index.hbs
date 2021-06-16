@@ -27,6 +27,59 @@
       </div>
     </div>
   </div>
+
+  {{!-- createErrorMessages --}}
+  {{#each createErrorMessages}}
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"
+        style="text-align: center; font-size: 1rem;">
+        {{this.msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+  {{#if createErrorMessages}}
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"
+        style="text-align: center; font-size: 1rem;">
+        請重新點選新增支出!!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  {{!-- editErrorMessages --}}
+  {{#each editErrorMessages}}
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert"
+        style="text-align: center; font-size: 1rem;">
+        {{this.msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+  {{#if editErrorMessages}}
+  <div class="row justify-content-center align-items-center">
+    <a class="btn col-6" href="/" style="font-size: 1rem;">
+      <div class="alert alert-info alert-dismissible fade show" role="alert" style="text-align:center">
+        請點選此處返回首頁並重新編輯!!
+      </div>
+    </a>
+  </div>
+  {{/if}}
+
   <ul class="list-group">
     <div class="row d-flex justify-content-center" id="data-panel">
       {{#each records}}
@@ -93,16 +146,12 @@
       <form action="/records" method="POST">
         <div class="modal-body">
 
-          <h2 class="text-danger" id="errorMessage" style="text-align: center;"></h2>
-          {{#if err}}
-          <h1>{{err}}</h1>
-          {{/if}}
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">名稱</span>
             </div>
             <input type="text" class="form-control" name="name" placeholder="請輸入名稱" aria-label="inputName"
-              aria-describedby="name" required>
+              aria-describedby="name" value="{{ record.name }}" required>
           </div>
 
           <div class="input-group mb-3">
@@ -111,11 +160,11 @@
             </div>
             <select class="custom-select" id="category" name="category" required>
               <option value="" selected hidden>請選擇</option>
-              <option value="housewares">家居物業</option>
-              <option value="transportation">交通出行</option>
-              <option value="entertainment">休閒娛樂</option>
-              <option value="food">餐飲食品</option>
-              <option value="others">其他</option>
+              <option value="housewares" {{#is record.category 'housewares' }} selected {{/is}}>家居物業</option>
+              <option value="transportation" {{#is record.category 'transportation' }} selected {{/is}}>交通出行</option>
+              <option value="entertainment" {{#is record.category 'entertainment' }} selected {{/is}}>休閒娛樂</option>
+              <option value="food" {{#is record.category 'food' }} selected {{/is}}>餐飲食品</option>
+              <option value="others" {{#is record.category 'others' }} selected {{/is}}>其他</option>
             </select>
           </div>
 
@@ -124,7 +173,7 @@
               <span class="input-group-text" name="inputDate">日期</span>
             </div>
             <input type="date" class="form-control" name="date" id="inputDate" aria-label="inputDate"
-              aria-describedby="inputDate" required>
+              aria-describedby="inputDate" value="{{ record.date }}" required>
           </div>
 
           <div class="input-group mb-3">
@@ -132,7 +181,7 @@
               <span class="input-group-text">金額</span>
             </div>
             <input type="number" class="form-control" name="amount" id="amount" placeholder="請輸入金額"
-              aria-label="inputAmount" aria-describedby="inputAmount" required>
+              aria-label="inputAmount" aria-describedby="inputAmount" value="{{ record.amount }}" required>
           </div>
 
         </div>
@@ -158,8 +207,6 @@
       </div>
       <form action="/records/{{ this._id }}?_method=PUT" method="POST" id="edit-form">
         <div class="modal-body">
-
-          <h2 class="text-danger" id="errorMessage" style="text-align: center;"></h2>
 
           <div class="input-group mb-3">
             <div class="input-group-prepend">
