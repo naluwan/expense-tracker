@@ -25,8 +25,10 @@ dataPanel.addEventListener('click', event => {
   const target = event.target
   // create btn
   if (target.matches('#create-btn')) {
-    const today = new Date()
-    defaultDate.value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2)
+    if (!defaultDate.value) {
+      const today = new Date()
+      defaultDate.value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2)
+    }
   }
 
   // edit btn
@@ -61,24 +63,6 @@ dataPanel.addEventListener('click', event => {
   }
 })
 
-modalContents.forEach(modalContent => {
-  modalContent.addEventListener('click', event => {
-    const target = event.target
-
-    if (target.matches('#confirm-create')) {
-      checkAmount(amount)
-    }
-
-    if (target.matches('#confirm-save')) {
-      checkAmount(modalAmount)
-    }
-  })
-})
-
-
-
-
-
 //  function
 //  show , on thousand
 function formatAmount() {
@@ -92,20 +76,4 @@ function formatAmount() {
   showAmounts.forEach(showAmount => {
     showAmount.innerText = showAmount.innerText.replace(re, '$1,')
   })
-}
-
-// check amount
-function checkAmount(amount) {
-  if (amount.value <= 0) {
-    errorMessages.forEach(errorMessage => {
-      errorMessage.innerText = '支出金額有誤，請重新輸入!'
-
-      amount.addEventListener('focus', event => {
-        if (event.target) {
-          amount.value = ''
-          errorMessage.innerText = ''
-        }
-      })
-    })
-  }
 }
