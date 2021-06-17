@@ -28,57 +28,7 @@
     </div>
   </div>
 
-  {{!-- createErrorMessages --}}
-  {{#each createErrorMessages}}
-  <div class="row justify-content-center">
-    <div class="col-8">
-      <div class="alert alert-danger alert-dismissible fade show" role="alert"
-        style="text-align: center; font-size: 1rem;">
-        {{this.msg}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  {{/each}}
-  {{#if createErrorMessages}}
-  <div class="row justify-content-center">
-    <div class="col-8">
-      <div class="alert alert-danger alert-dismissible fade show" role="alert"
-        style="text-align: center; font-size: 1rem;">
-        請重新點選新增支出!!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  {{/if}}
-
-  {{!-- editErrorMessages --}}
-  {{#each editErrorMessages}}
-  <div class="row justify-content-center">
-    <div class="col-8">
-      <div class="alert alert-danger alert-dismissible fade show" role="alert"
-        style="text-align: center; font-size: 1rem;">
-        {{this.msg}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  {{/each}}
-  {{#if editErrorMessages}}
-  <div class="row justify-content-center align-items-center">
-    <a class="btn col-6" href="/" style="font-size: 1rem;">
-      <div class="alert alert-info alert-dismissible fade show" role="alert" style="text-align:center">
-        請點選此處返回首頁並重新編輯!!
-      </div>
-    </a>
-  </div>
-  {{/if}}
+  {{> message}}
 
   <ul class="list-group">
     <div class="row d-flex justify-content-center" id="data-panel">
