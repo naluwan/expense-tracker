@@ -15,14 +15,23 @@ router.post('/', [
   check('amount').isInt({ allow_leading_zeroes: false, min: 1 }).withMessage('支出金額有誤，請重新輸入!')
 ], checkCreateValid, (req, res) => {
   const { name, category, date, amount } = req.body
-  Record.create({
-    name,
-    category,
-    date,
-    amount
-  })
-    .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
+
+  Category.find({ name: category })
+    .lean()
+    .then(result => {
+      if (result.length === 0) {
+        return res.render('index', { createCategoryError: '找不到所選類別，請重新選擇!' })
+      } else {
+        Record.create({
+          name,
+          category,
+          date,
+          amount
+        })
+          .then(() => res.redirect('/'))
+          .catch(err => console.log(err))
+      }
+    }).catch(err => console.log(err))
 })
 
 router.get('/filter', (req, res) => {
@@ -58,15 +67,23 @@ router.put('/:id', [
   const id = req.params.id
   const newRecord = req.body
 
-  return Record.findById(id)
-    .then(record => {
-      record.name = newRecord.name
-      record.category = newRecord.category
-      record.date = newRecord.date
-      record.amount = newRecord.amount
-      return record.save()
-    }).then(() => res.redirect('/'))
-    .catch(err => console.log(err))
+  Category.find({ name: newRecord.category })
+    .lean()
+    .then(result => {
+      if (result.length === 0) {
+        return res.render('index', { editCategoryError: '找不到所選類別，請重新選擇' })
+      } else {
+        return Record.findById(id)
+          .then(record => {
+            record.name = newRecord.name
+            record.category = newRecord.category
+            record.date = newRecord.date
+            record.amount = newRecord.amount
+            return record.save()
+          }).then(() => res.redirect('/'))
+          .catch(err => console.log(err))
+      }
+    }).catch(err => console.log(err))
 })
 
 router.delete('/:id', (req, res) => {
