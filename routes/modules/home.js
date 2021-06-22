@@ -13,10 +13,8 @@ router.get('/', (req, res) => {
 
       records.forEach(record => {
         const category = categories.find(category => category.name === record.category)
-        if (category) {
-          record.icon = category.icon
-          record.date = getDate(record.date)
-        }
+        record.icon = category.icon
+        record.date = getDate(record.date)
       })
       res.render('index', { records, totalAmount })
     }).catch(err => console.log(err))
