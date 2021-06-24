@@ -5,7 +5,21 @@ const Category = require('../../models/category')
 const { getDate } = require('../../public/javascript/functions')
 
 router.get('/', (req, res) => {
-  Promise.all([Record.find().lean().sort('-date'), Category.find().lean()])
+  const { filteredCategory } = req.query
+  let query = ''
+  if (filteredCategory === undefined || filteredCategory === "") {
+    query = undefined
+  } else {
+    query = { category: filteredCategory }
+    Category.find({ name: filteredCategory })
+      .then(result => {
+        if (result.length === 0) {
+          return res.render('index', { filterError: '找不到所選類別，請重新選擇!' })
+        }
+      })
+  }
+
+  Promise.all([Record.find(query).lean().sort('-date'), Category.find().lean()])
     .then(results => {
       const [records, categories] = results
       const amounts = records.map(record => record.amount)
@@ -16,7 +30,7 @@ router.get('/', (req, res) => {
         record.icon = category.icon
         record.date = getDate(record.date)
       })
-      res.render('index', { records, totalAmount })
+      res.render('index', { records, totalAmount, filteredCategory })
     }).catch(err => console.log(err))
 })
 

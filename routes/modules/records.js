@@ -34,24 +34,6 @@ router.post('/', [
     }).catch(err => console.log(err))
 })
 
-router.get('/filter', (req, res) => {
-  const { filteredCategory } = req.query
-
-  Promise.all([Record.find({ category: { $regex: filteredCategory } }).lean().sort('-date'), Category.find().lean()])
-    .then(results => {
-      const [filteredRecords, categories] = results
-      const amounts = filteredRecords.map(filteredRecord => filteredRecord.amount)
-      const totalAmount = amounts.reduce((sum, current) => sum + current, 0)
-
-      filteredRecords.forEach(record => {
-        const category = categories.find(category => category.name === record.category)
-        record.icon = category.icon
-        record.date = getDate(record.date)
-      })
-      res.render('index', { records: filteredRecords, totalAmount, filteredCategory })
-    }).catch(err => console.log(err))
-})
-
 router.put('/:id', [
   check('name').trim().isLength({ min: 1 }).withMessage('名稱不可為空白，請重新輸入!'),
   check('date').isISO8601().toDate().withMessage('請照格式選擇日期!'),
