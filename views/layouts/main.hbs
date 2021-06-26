@@ -15,7 +15,17 @@
 
   <header>
     <nav class="navbar navbar-dark bg-dark" style="font-weight:bold;">
-      <a class="navbar-brand" href="/">My Expense Tracker</a>
+      <a class="navbar-brand" href="/">
+        {{#if isAuthenticated}}
+        {{user.name}}'s
+        {{/if}}
+        Expense Tracker
+      </a>
+      {{#if isAuthenticated}}
+      <a href="/users/logout" class="btn btn-outline-light">Logout</a>
+      {{else}}
+      <a href="/users/login" class="btn btn-outline-light">Login</a>
+      {{/if}}
     </nav>
   </header>
 
