@@ -1,32 +1,31 @@
-<div class="container mt-5">
-  <div class="row d-flex justify-content-center">
-    <div class="col-10">
-      <form action="/" method="GET" name="filter-form">
-        <div class="col-8 mx-auto">
-          <select name="filteredCategory" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
-            <option value="" selected>所有類別</option>
-            <option value="housewares" {{#is filteredCategory 'housewares' }} selected{{/is}}>家居物業</option>
-            <option value="transportation" {{#is filteredCategory 'transportation' }} selected{{/is}}>交通出行</option>
-            <option value="entertainment" {{#is filteredCategory 'entertainment' }} selected{{/is}}>休閒娛樂</option>
-            <option value="food" {{#is filteredCategory 'food' }} selected{{/is}}>餐飲食品</option>
-            <option value="others" {{#is filteredCategory 'others' }} selected{{/is}}>其他</option>
-          </select>
-        </div>
-      </form>
-      <div class="row">
-        <div class="col-10">
-          <div class="col-8 d-flex justify-content-between mx-auto">
-            <div class="col-5">
-              <p class="ml-3 mt-5" style="font-size: 2vw;">總金額：</p>
-            </div>
-            <div class="col-3">
-              <p style="font-size: 5vw; color:tomato" id="totalAmount">${{totalAmount}}</p>
-            </div>
+<div class="row d-flex justify-content-center">
+  <div class="col-10">
+    <form action="/" method="GET" name="filter-form">
+      <div class="col-8 mx-auto">
+        <select name="filteredCategory" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
+          <option value="" selected>所有類別</option>
+          <option value="housewares" {{#is filteredCategory 'housewares' }} selected{{/is}}>家居物業</option>
+          <option value="transportation" {{#is filteredCategory 'transportation' }} selected{{/is}}>交通出行</option>
+          <option value="entertainment" {{#is filteredCategory 'entertainment' }} selected{{/is}}>休閒娛樂</option>
+          <option value="food" {{#is filteredCategory 'food' }} selected{{/is}}>餐飲食品</option>
+          <option value="others" {{#is filteredCategory 'others' }} selected{{/is}}>其他</option>
+        </select>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-10">
+        <div class="col-8 d-flex justify-content-between mx-auto">
+          <div class="col-5">
+            <p class="ml-3 mt-5" style="font-size: 2vw;">總金額：</p>
+          </div>
+          <div class="col-3">
+            <p style="font-size: 5vw; color:tomato" id="totalAmount">${{totalAmount}}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 
   {{> message}}
 
