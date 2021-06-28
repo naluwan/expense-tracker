@@ -6,7 +6,7 @@ const errorMessages = document.querySelectorAll('#errorMessage')
 const modalAmount = document.querySelector('#modal-amount')
 const amount = document.querySelector('#amount')
 const modalContents = document.querySelectorAll('.modal-content')
-
+const createBtn = document.querySelector('#create-btn')
 formatAmount()
 
 // li background color
@@ -23,13 +23,6 @@ records.forEach(record => {
 //  btn event
 dataPanel.addEventListener('click', event => {
   const target = event.target
-  // create btn
-  if (target.matches('#create-btn')) {
-    if (!defaultDate.value) {
-      const today = new Date()
-      defaultDate.value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2)
-    }
-  }
 
   // edit btn
   if (target.matches('#edit-btn')) {
@@ -60,6 +53,17 @@ dataPanel.addEventListener('click', event => {
     deleteForm.action = `/records/${target.dataset.id}?_method=DELETE`
     // 要在呼叫一次modal內才會有效果
     formatAmount()
+  }
+})
+
+// create btn
+createBtn.addEventListener('click', event => {
+  const target = event.target
+  if (target) {
+    if (!defaultDate.value) {
+      const today = new Date()
+      defaultDate.value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2)
+    }
   }
 })
 

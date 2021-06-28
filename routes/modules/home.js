@@ -6,11 +6,12 @@ const { getDate } = require('../../public/javascript/functions')
 
 router.get('/', (req, res) => {
   const { filteredCategory } = req.query
+  const userId = req.user._id
   let query = ''
   if (filteredCategory === undefined || filteredCategory === "") {
-    query = undefined
+    query = { userId }
   } else {
-    query = { category: filteredCategory }
+    query = { category: filteredCategory, userId }
     Category.find({ name: filteredCategory })
       .then(result => {
         if (result.length === 0) {

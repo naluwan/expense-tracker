@@ -28,57 +28,58 @@
 
 
   {{> message}}
+  <div class="col-8">
+    <ul class="list-group">
+      <div class="row d-flex justify-content-center" id="data-panel">
+        {{#each records}}
+        <div class="col-12">
+          <li class="list-group-item" id="record-item" style="border: none;">
+            <div class="row">
+              <div class="col-8 d-flex justify-content-between">
+                <div class="col-1 d-flex align-items-center justify-content-center mx-3"
+                  style="opacity: 0.7; color:turquoise">
+                  <i class="{{ this.icon }} fa-3x"></i>
+                </div>
+                <div class="col-6">
+                  <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
+                  <small style="font-size: 14px;">{{ this.date }}</small>
+                </div>
+                <div class="col-2 d-flex flex-row justify-content-center">
+                  <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
+                    this.amount
+                    }}</p>
+                </div>
+              </div>
+              <div class="col-4 d-flex align-self-center">
+                <button class="col-6 btn btn-outline-light btn-primary my-auto"
+                  style="font-size:medium; height:fit-content" id="edit-btn" data-toggle="modal"
+                  data-target="#editModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
+                  data-date="{{ this.date }}" data-category="{{ this.category }}" data-amount="{{ this.amount }}">
+                  編輯
+                </button>
 
-  <ul class="list-group">
-    <div class="row d-flex justify-content-center" id="data-panel">
-      {{#each records}}
-      <div class="col-8">
-        <li class="list-group-item" id="record-item" style="border: none;">
-          <div class="row">
-            <div class="col-8 d-flex justify-content-between">
-              <div class="col-1 d-flex align-items-center justify-content-center mx-3"
-                style="opacity: 0.7; color:turquoise">
-                <i class="{{ this.icon }} fa-3x"></i>
-              </div>
-              <div class="col-6">
-                <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
-                <small style="font-size: 14px;">{{ this.date }}</small>
-              </div>
-              <div class="col-2 d-flex flex-row justify-content-center">
-                <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
-                  this.amount
-                  }}</p>
+                <button class="col-6 btn btn-outline-light btn-danger mx-3 my-auto"
+                  style="font-size:medium; height:fit-content" id="delete-btn" data-toggle="modal"
+                  data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
+                  data-amount="{{ this.amount }}">
+                  刪除
+                </button>
               </div>
             </div>
-            <div class="col-4 d-flex justify-content-end">
-              <button class="col-5 btn btn-outline-light btn-primary my-auto"
-                style="font-size:medium; height:fit-content" id="edit-btn" data-toggle="modal" data-target="#editModal"
-                data-id="{{ this._id }}" data-name="{{ this.name }}" data-date="{{ this.date }}"
-                data-category="{{ this.category }}" data-amount="{{ this.amount }}">
-                編輯
-              </button>
-
-              <button class="col-5 btn btn-outline-light btn-danger mx-3 my-auto"
-                style="font-size:medium; height:fit-content" id="delete-btn" data-toggle="modal"
-                data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-                data-amount="{{ this.amount }}">
-                刪除
-              </button>
-            </div>
-          </div>
-        </li>
-      </div>
-      {{/each}}
-      <div class="col-10">
-        <div class="row justify-content-center">
-          {{!-- create modal button --}}
-          <button class="btn col-4 btn-outline-dark my-5"
-            style="color:white; background-color:orange; font-size:xx-large;" id="create-btn" data-toggle="modal"
-            data-target="#createModal">新增支出</button>
+          </li>
         </div>
+        {{/each}}
       </div>
+    </ul>
+  </div>
+
+  <div class="col-10">
+    <div class="row justify-content-center">
+      {{!-- create modal button --}}
+      <button class="btn col-4 btn-outline-primary my-5" style="font-size:2.5em;" id="create-btn" data-toggle="modal"
+        data-target="#createModal">新增支出</button>
     </div>
-  </ul>
+  </div>
 </div>
 
 {{!-- create modal --}}

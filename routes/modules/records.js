@@ -15,6 +15,7 @@ router.post('/', [
   check('amount').isInt({ allow_leading_zeroes: false, min: 1 }).withMessage('支出金額有誤，請重新輸入!')
 ], checkCreateValid, (req, res) => {
   const { name, category, date, amount } = req.body
+  const userId = req.user._id
 
   Category.find({ name: category })
     .lean()
@@ -26,7 +27,8 @@ router.post('/', [
           name,
           category,
           date,
-          amount
+          amount,
+          userId
         })
           .then(() => res.redirect('/'))
           .catch(err => console.log(err))
@@ -46,7 +48,8 @@ router.put('/:id', [
     return true
   })
 ], checkEditValid, (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const newRecord = req.body
 
   Category.find({ name: newRecord.category })
@@ -55,7 +58,7 @@ router.put('/:id', [
       if (result.length === 0) {
         return res.render('index', { editCategoryError: '找不到所選類別，請重新選擇' })
       } else {
-        return Record.findById(id)
+        return Record.findOne({ _id, userId })
           .then(record => {
             record.name = newRecord.name
             record.category = newRecord.category
@@ -69,9 +72,10 @@ router.put('/:id', [
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
 
-  return Record.findById(id)
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
