@@ -1,7 +1,7 @@
 # [Expense Tracker](https://damp-island-27606.herokuapp.com/users/login)
 
 Expense Tracker website built with Node.js and Express
-You can record you expense on this website
+  You can record you expense on this website
 
 
 ## Test account
