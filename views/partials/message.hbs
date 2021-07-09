@@ -1,100 +1,12 @@
-{{!-- createErrorMessages --}}
-{{#each createErrorMessages}}
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-      style="text-align: center; font-size: 1rem;">
-      {{this.msg}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
+{{#if errs}}
+{{#each errs}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center; font-size: 1rem;">
+  {{this.msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 {{/each}}
-
-{{#if createCategoryError}}
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-      style="text-align: center; font-size: 1rem;">
-      {{createCategoryError}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-</div>
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-      style="text-align: center; font-size: 1rem;">
-      請重新點選新增支出!!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-</div>
-{{/if}}
-
-{{#if createErrorMessages}}
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-      style="text-align: center; font-size: 1rem;">
-      請重新點選新增支出!!
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-</div>
-{{/if}}
-
-{{!-- editErrorMessages --}}
-{{#each editErrorMessages}}
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-      style="text-align: center; font-size: 1rem;">
-      {{this.msg}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-</div>
-{{/each}}
-{{#if editErrorMessages}}
-<div class="row justify-content-center align-items-center">
-  <a class="btn col-6" href="/" style="font-size: 1rem;">
-    <div class="alert alert-info alert-dismissible fade show" role="alert" style="text-align:center">
-      請點選此處返回首頁並重新編輯!!
-    </div>
-  </a>
-</div>
-{{/if}}
-
-{{#if editCategoryError}}
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert"
-      style="text-align: center; font-size: 1rem;">
-      {{editCategoryError}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-</div>
-<div class="row justify-content-center align-items-center">
-  <a class="btn col-6" href="/" style="font-size: 1rem;">
-    <div class="alert alert-info alert-dismissible fade show" role="alert" style="text-align:center">
-      請點選此處返回首頁並重新編輯!!
-    </div>
-  </a>
-</div>
 {{/if}}
 
 {{!-- filter Error --}}
@@ -110,4 +22,42 @@
     </div>
   </div>
 </div>
+{{/if}}
+
+{{#if warning_msg}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert" style="text-align: center; font-size: 1rem;">
+  {{warning_msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
+
+{{#if success_msg}}
+<div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align: center; font-size: 1rem;">
+  {{success_msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
+
+{{#if errorMsg}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center; font-size: 1rem;">
+  {{errorMsg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/if}}
+
+{{#if errors}}
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: center; font-size: 1rem;">
+  {{this.message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/each}}
 {{/if}}

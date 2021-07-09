@@ -8,6 +8,24 @@ const checkCreateValid = require('../../modules/checkCreateValid')
 const checkEditValid = require('../../modules/checkEditValid')
 const mongoose = require('mongoose')
 
+router.get('/new', (req, res) => {
+  const today = getDate(Date.now())
+  res.render('new', { defaultDate: today })
+})
+
+router.get('/:id/edit', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+
+  Record.findOne({ _id, userId })
+    .lean()
+    .then(record => {
+      record.date = getDate(record.date)
+      res.render('edit', { record })
+    })
+    .catch(err => console.log(err))
+})
+
 router.post('/', [
   check('name').trim().isLength({ min: 1 }).withMessage('名稱不可為空白，請重新輸入!'),
   check('date').isISO8601().toDate().withMessage('請照格式選擇日期!'),
@@ -16,23 +34,25 @@ router.post('/', [
 ], checkCreateValid, (req, res) => {
   const { name, category, date, amount } = req.body
   const userId = req.user._id
+  const defaultDate = getDate(date)
 
   Category.find({ name: category })
     .lean()
     .then(result => {
       if (result.length === 0) {
-        return res.render('index', { createCategoryError: '找不到所選類別，請重新選擇!' })
-      } else {
-        Record.create({
-          name,
-          category,
-          date,
-          amount,
-          userId
-        })
-          .then(() => res.redirect('/'))
-          .catch(err => console.log(err))
+        return res.render('new', { errorMsg: '找不到所選類別，請重新選擇!', record: { name, category, amount }, defaultDate })
       }
+
+      return Record.create({
+        name,
+        category,
+        date,
+        amount,
+        userId
+      })
+        .then(() => res.redirect('/'))
+        .catch(err => console.log(err))
+
     }).catch(err => console.log(err))
 })
 
@@ -51,12 +71,14 @@ router.put('/:id', [
   const userId = req.user._id
   const _id = req.params.id
   const newRecord = req.body
+  const { name, date, category, amount } = req.body
+  date = getDate(date)
 
   Category.find({ name: newRecord.category })
     .lean()
     .then(result => {
       if (result.length === 0) {
-        return res.render('index', { editCategoryError: '找不到所選類別，請重新選擇' })
+        return res.render('edit', { errorMsg: '找不到所選類別，請重新選擇!', record: { name, date, category, amount } })
       } else {
         return Record.findOne({ _id, userId })
           .then(record => {

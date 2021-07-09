@@ -8,9 +8,10 @@ const checkCreateValid = (req, res, next) => {
   const errors = validationResult(req)
 
   if (!errors.isEmpty()) {
-    return res.status(422).render('index', {
-      createErrorMessages: errors.array(),
-      record: { name, category, date, amount }
+    return res.status(422).render('new', {
+      errs: errors.array(),
+      record: { name, category, amount },
+      defaultDate: date
     })
   }
   next()

@@ -1,4 +1,4 @@
-<div class="row d-flex justify-content-center">
+<div class="row d-flex justify-content-center all">
   <div class="col-10">
     <form action="/" method="GET" name="filter-form">
       <div class="col-8 mx-auto">
@@ -26,8 +26,6 @@
     </div>
   </div>
 
-
-  {{> message}}
   <div class="col-8">
     <ul class="list-group">
       <div class="row d-flex justify-content-center" id="data-panel">
@@ -51,17 +49,11 @@
                 </div>
               </div>
               <div class="col-4 d-flex align-self-center">
-                <button class="col-6 btn btn-outline-light btn-primary my-auto"
-                  style="font-size:medium; height:fit-content" id="edit-btn" data-toggle="modal"
-                  data-target="#editModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-                  data-date="{{ this.date }}" data-category="{{ this.category }}" data-amount="{{ this.amount }}">
-                  編輯
-                </button>
+                <a href="/records/{{ this._id}}/edit" class="btn btn-primary col-5" style="font-size: 1rem;">編輯</a>
 
-                <button class="col-6 btn btn-outline-light btn-danger mx-3 my-auto"
-                  style="font-size:medium; height:fit-content" id="delete-btn" data-toggle="modal"
-                  data-target="#deleteModal" data-id="{{ this._id }}" data-name="{{ this.name }}"
-                  data-amount="{{ this.amount }}">
+                <button class="col-5 btn btn-danger mx-3 my-auto" style="font-size:medium; height:fit-content"
+                  id="delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="{{ this._id }}"
+                  data-name="{{ this.name }}" data-amount="{{ this.amount }}">
                   刪除
                 </button>
               </div>
@@ -75,133 +67,8 @@
 
   <div class="col-10">
     <div class="row justify-content-center">
-      {{!-- create modal button --}}
-      <button class="btn col-4 btn-outline-primary my-5" style="font-size:2.5em;" id="create-btn" data-toggle="modal"
-        data-target="#createModal">新增支出</button>
-    </div>
-  </div>
-</div>
-
-{{!-- create modal --}}
-<div class="modal fade createModal" id="createModal" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">新增支出</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="/records" method="POST">
-        <div class="modal-body">
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">名稱</span>
-            </div>
-            <input type="text" class="form-control" name="name" placeholder="請輸入名稱" aria-label="inputName"
-              aria-describedby="name" value="{{ record.name }}" required>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="category">類別</label>
-            </div>
-            <select class="custom-select" id="category" name="category" required>
-              <option value="" selected hidden>請選擇</option>
-              <option value="housewares" {{#is record.category 'housewares' }} selected {{/is}}>家居物業</option>
-              <option value="transportation" {{#is record.category 'transportation' }} selected {{/is}}>交通出行</option>
-              <option value="entertainment" {{#is record.category 'entertainment' }} selected {{/is}}>休閒娛樂</option>
-              <option value="food" {{#is record.category 'food' }} selected {{/is}}>餐飲食品</option>
-              <option value="others" {{#is record.category 'others' }} selected {{/is}}>其他</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" name="inputDate">日期</span>
-            </div>
-            <input type="date" class="form-control" name="date" id="inputDate" aria-label="inputDate"
-              aria-describedby="inputDate" value="{{ record.date }}" required>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">金額</span>
-            </div>
-            <input type="number" class="form-control" name="amount" id="amount" placeholder="請輸入金額"
-              aria-label="inputAmount" aria-describedby="inputAmount" value="{{ record.amount }}" required>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-primary confirm-btn" id="confirm-create">新增</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-{{!-- edit modal --}}
-<div class="modal fade editModal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">修改支出</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="/records/{{ this._id }}?_method=PUT" method="POST" id="edit-form">
-        <div class="modal-body">
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">名稱</span>
-            </div>
-            <input type="text" class="form-control" name="name" id="modal-name" placeholder="請輸入名稱"
-              aria-label="inputName" aria-describedby="name" required>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="category">類別</label>
-            </div>
-            <select class="custom-select" id="modal-category" name="category" required>
-              <option value="" selected hidden>請選擇</option>
-              <option value="housewares">家居物業</option>
-              <option value="transportation">交通出行</option>
-              <option value="entertainment">休閒娛樂</option>
-              <option value="food">餐飲食品</option>
-              <option value="others">其他</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" name="inputDate">日期</span>
-            </div>
-            <input type="date" class="form-control" name="date" id="modal-date" aria-label="inputDate"
-              aria-describedby="inputDate" required>
-          </div>
-
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">金額</span>
-            </div>
-            <input type="number" class="form-control" name="amount" id="modal-amount" placeholder="請輸入金額"
-              aria-label="inputAmount" aria-describedby="inputAmount" required>
-          </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-success confirm-btn" id="confirm-save">儲存</button>
-        </div>
-      </form>
+      <a href="/records/new" class="btn btn-outline-primary col-4 my-5" id="create-btn"
+        style="font-size: 2rem;">新增支出</a>
     </div>
   </div>
 </div>

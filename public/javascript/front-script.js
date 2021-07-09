@@ -6,7 +6,6 @@ const errorMessages = document.querySelectorAll('#errorMessage')
 const modalAmount = document.querySelector('#modal-amount')
 const amount = document.querySelector('#amount')
 const modalContents = document.querySelectorAll('.modal-content')
-const createBtn = document.querySelector('#create-btn')
 formatAmount()
 
 // li background color
@@ -24,24 +23,6 @@ records.forEach(record => {
 dataPanel.addEventListener('click', event => {
   const target = event.target
 
-  // edit btn
-  if (target.matches('#edit-btn')) {
-    const modalName = document.querySelector('#modal-name')
-    const modalCategories = document.querySelectorAll('#modal-category option')
-    const modalDate = document.querySelector('#modal-date')
-    const editForm = document.querySelector('#edit-form')
-
-    modalName.value = target.dataset.name
-    modalDate.value = target.dataset.date
-    modalAmount.value = target.dataset.amount
-    modalCategories.forEach(modalCategory => {
-      if (modalCategory.value === target.dataset.category) {
-        return modalCategory.selected = true
-      }
-    })
-    editForm.action = `/records/${target.dataset.id}?_method=PUT`
-  }
-
   // delete btn
   if (target.matches('#delete-btn')) {
     const deleteName = document.querySelector('#delete-name')
@@ -53,17 +34,6 @@ dataPanel.addEventListener('click', event => {
     deleteForm.action = `/records/${target.dataset.id}?_method=DELETE`
     // 要在呼叫一次modal內才會有效果
     formatAmount()
-  }
-})
-
-// create btn
-createBtn.addEventListener('click', event => {
-  const target = event.target
-  if (target) {
-    if (!defaultDate.value) {
-      const today = new Date()
-      defaultDate.value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2)
-    }
   }
 })
 
