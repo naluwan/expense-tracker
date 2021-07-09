@@ -4,31 +4,36 @@
       "name": "看電影",
       "category": "entertainment",
       "date": "2021-06-01",
-      "amount": 580
+      "amount": 580,
+      "merchant": "華納威秀"
     },
     {
       "name": "UBER",
       "category": "transportation",
       "date": "2021-06-01",
-      "amount": 200
+      "amount": 200,
+      "merchant": "UBER"
     },
     {
-      "name": "麥當勞",
+      "name": "早餐",
       "category": "food",
       "date": "2021-06-01",
-      "amount": 140
+      "amount": 140,
+      "merchant": "麥當勞"
     },
     {
       "name": "買酒精",
       "category": "housewares",
       "date": "2021-06-03",
-      "amount": 120
+      "amount": 120,
+      "merchant": "全家"
     },
     {
-      "name": "元大卡費",
+      "name": "卡費",
       "category": "others",
       "date": "2021-06-08",
-      "amount": 6646
+      "amount": 6646,
+      "merchant": "元大"
     }
   ],
   "categorySeeds": [
