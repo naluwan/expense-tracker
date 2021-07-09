@@ -32,7 +32,7 @@ router.post('/', [
   check('category').trim().isLength({ min: 1 }).withMessage('請選擇支出類別'),
   check('amount').isInt({ allow_leading_zeroes: false, min: 1 }).withMessage('支出金額有誤，請重新輸入!')
 ], checkCreateValid, (req, res) => {
-  const { name, category, date, amount } = req.body
+  const { name, category, date, amount, merchant } = req.body
   const userId = req.user._id
   const defaultDate = getDate(date)
 
@@ -40,7 +40,7 @@ router.post('/', [
     .lean()
     .then(result => {
       if (result.length === 0) {
-        return res.render('new', { errorMsg: '找不到所選類別，請重新選擇!', record: { name, category, amount }, defaultDate })
+        return res.render('new', { errorMsg: '找不到所選類別，請重新選擇!', record: { name, category, amount, merchant }, defaultDate })
       }
 
       return Record.create({
@@ -48,6 +48,7 @@ router.post('/', [
         category,
         date,
         amount,
+        merchant,
         userId
       })
         .then(() => res.redirect('/'))
@@ -71,14 +72,15 @@ router.put('/:id', [
   const userId = req.user._id
   const _id = req.params.id
   const newRecord = req.body
-  const { name, date, category, amount } = req.body
-  date = getDate(date)
+
 
   Category.find({ name: newRecord.category })
     .lean()
     .then(result => {
       if (result.length === 0) {
-        return res.render('edit', { errorMsg: '找不到所選類別，請重新選擇!', record: { name, date, category, amount } })
+        const { name, date, category, amount, merchant } = req.body
+        date = getDate(date)
+        return res.render('edit', { errorMsg: '找不到所選類別，請重新選擇!', record: { name, date, category, amount, merchant } })
       } else {
         return Record.findOne({ _id, userId })
           .then(record => {
@@ -86,6 +88,7 @@ router.put('/:id', [
             record.category = newRecord.category
             record.date = newRecord.date
             record.amount = newRecord.amount
+            record.merchant = newRecord.merchant
             return record.save()
           }).then(() => res.redirect('/'))
           .catch(err => console.log(err))

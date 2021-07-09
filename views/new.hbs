@@ -44,6 +44,14 @@
               aria-label="inputAmount" aria-describedby="inputAmount" value="{{ record.amount }}" required>
           </div>
 
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">店家</span>
+            </div>
+            <input type="text" class="form-control" name="merchant" id="merchant" placeholder="請輸入店家名稱"
+              aria-label="inputMerchant" aria-describedby="inputMerchant" value="{{ record.merchant }}" required>
+          </div>
+
         </div>
         <div class="modal-footer">
           <a href="/" class="btn btn-outline-info">取消</a>
