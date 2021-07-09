@@ -1,14 +1,31 @@
-# My Expense Tracker
-A simple expense tracker website built with Node.js and Express
+# [Expense Tracker](https://damp-island-27606.herokuapp.com/users/login)
 
+Expense Tracker website built with Node.js and Express
+You can record you expense on this website
+
+
+## Test account
+
+>* name: user1
+>* email: user1@example.com
+>* password: 123456
+
+>* name: user2
+>* email: user2@example.com
+>* password: 123456
 # Features
 * Show name, date, category icon, amount of all expenses
 * Show expenses by filter category  
 * Create a new expense
 * Edit expense
 * Delete expense
+* Register account
+* Login by your account or Facebook
+* Show your own records when you login
 
-![image](./public/image/expense-tracker.png)
+![image](./public/image/expense-tracker-login.png)
+
+![image](./public/image/expense-tracker-v1.png)
 
 # Getting Started
 Clone respository to your local computer
@@ -43,6 +60,8 @@ http://localhost:3000
 * Body-Parser: 1.19.0
 * Mongoose: 5.12.13
 * Method-Override: 3.0.0
+* passport: 0.4.1
+* connect-flash": 0.1.1
  
 # Author
 NaLuWan 簡碩亨
