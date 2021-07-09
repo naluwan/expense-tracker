@@ -26,43 +26,45 @@
     </div>
   </div>
 
-  <div class="col-8">
-    <ul class="list-group">
-      <div class="row d-flex justify-content-center" id="data-panel">
-        {{#each records}}
-        <div class="col-12">
-          <li class="list-group-item" id="record-item" style="border: none;">
-            <div class="row">
-              <div class="col-8 d-flex justify-content-between">
-                <div class="col-1 d-flex align-items-center justify-content-center mx-3"
-                  style="opacity: 0.7; color:turquoise">
-                  <i class="{{ this.icon }} fa-3x"></i>
+  <div class="col-8 wrapper">
+    <div class="scroll-view">
+      <ul class="list-group">
+        <div class="row d-flex justify-content-center" id="data-panel">
+          {{#each records}}
+          <div class="col-12">
+            <li class="list-group-item" id="record-item" style="border: none;">
+              <div class="row">
+                <div class="col-8 d-flex justify-content-between">
+                  <div class="col-1 d-flex align-items-center justify-content-center mx-3"
+                    style="opacity: 0.7; color:turquoise">
+                    <i class="{{ this.icon }} fa-3x"></i>
+                  </div>
+                  <div class="col-6">
+                    <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
+                    <small style="font-size: 14px;">{{ this.date }}</small>
+                  </div>
+                  <div class="col-2 d-flex flex-row justify-content-center">
+                    <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
+                      this.amount
+                      }}</p>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <p style="font-weight: bold; font-size: 20px;">{{ this.name }}</p>
-                  <small style="font-size: 14px;">{{ this.date }}</small>
-                </div>
-                <div class="col-2 d-flex flex-row justify-content-center">
-                  <p class="align-self-center" style="font-weight: bold; font-size: 20px;" id="showAmount">${{
-                    this.amount
-                    }}</p>
-                </div>
-              </div>
-              <div class="col-4 d-flex align-self-center">
-                <a href="/records/{{ this._id}}/edit" class="btn btn-primary col-5" style="font-size: 1rem;">編輯</a>
+                <div class="col-4 d-flex align-self-center">
+                  <a href="/records/{{ this._id}}/edit" class="btn btn-primary col-5" style="font-size: 1rem;">編輯</a>
 
-                <button class="col-5 btn btn-danger mx-3 my-auto" style="font-size:medium; height:fit-content"
-                  id="delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="{{ this._id }}"
-                  data-name="{{ this.name }}" data-amount="{{ this.amount }}">
-                  刪除
-                </button>
+                  <button class="col-5 btn btn-danger mx-3 my-auto" style="font-size:medium; height:fit-content"
+                    id="delete-btn" data-toggle="modal" data-target="#deleteModal" data-id="{{ this._id }}"
+                    data-name="{{ this.name }}" data-amount="{{ this.amount }}">
+                    刪除
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          </div>
+          {{/each}}
         </div>
-        {{/each}}
-      </div>
-    </ul>
+      </ul>
+    </div>
   </div>
 
   <div class="col-10">

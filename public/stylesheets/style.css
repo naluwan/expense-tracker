@@ -1,0 +1,16 @@
+.wrapper{
+  flex: flex;
+  width: 85%;
+  margin: auto;
+}
+
+.scroll-view{
+  width: auto;
+  height: 21vw;
+  white-space: nowrap;
+  overflow-y: auto;
+}
+
+.list-group-item{
+  white-space: normal;
+}
