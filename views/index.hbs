@@ -1,9 +1,21 @@
 <div class="row d-flex justify-content-center all">
   <div class="col-10">
     <div class="row justify-content-center">
+      <form action="/" method="GET" name="filter-form">
+        <div class="col-12 mx-auto">
+          <select name="filteredCategory" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
+            <option value="" selected>所有類別</option>
+            <option value="housewares" {{#is filteredCategory 'housewares' }} selected{{/is}}>家居物業</option>
+            <option value="transportation" {{#is filteredCategory 'transportation' }} selected{{/is}}>交通出行</option>
+            <option value="entertainment" {{#is filteredCategory 'entertainment' }} selected{{/is}}>休閒娛樂</option>
+            <option value="food" {{#is filteredCategory 'food' }} selected{{/is}}>餐飲食品</option>
+            <option value="others" {{#is filteredCategory 'others' }} selected{{/is}}>其他</option>
+          </select>
+        </div>
+      </form>
       <form action="/" method="GET" name="filter-time">
         <div class="col-12 mx-auto">
-          <select name="filteredMonth" class="form-control mx-auto my-1" onchange="submit()" style="font-size: 20px;">
+          <select name="filteredMonth" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
             <option value="" selected>所有月份</option>
             <option value="1" {{#is filteredMonth '1' }} selected{{/is}}>January</option>
             <option value="2" {{#is filteredMonth '2' }} selected{{/is}}>February </option>
@@ -17,18 +29,6 @@
             <option value="10" {{#is filteredMonth '10' }} selected{{/is}}>October</option>
             <option value="11" {{#is filteredMonth '11' }} selected{{/is}}>November</option>
             <option value="12" {{#is filteredMonth '12' }} selected{{/is}}>December</option>
-          </select>
-        </div>
-      </form>
-      <form action="/" method="GET" name="filter-form">
-        <div class="col-12 mx-auto">
-          <select name="filteredCategory" class="form-control mx-auto" onchange="submit()" style="font-size: 20px;">
-            <option value="" selected>所有類別</option>
-            <option value="housewares" {{#is filteredCategory 'housewares' }} selected{{/is}}>家居物業</option>
-            <option value="transportation" {{#is filteredCategory 'transportation' }} selected{{/is}}>交通出行</option>
-            <option value="entertainment" {{#is filteredCategory 'entertainment' }} selected{{/is}}>休閒娛樂</option>
-            <option value="food" {{#is filteredCategory 'food' }} selected{{/is}}>餐飲食品</option>
-            <option value="others" {{#is filteredCategory 'others' }} selected{{/is}}>其他</option>
           </select>
         </div>
       </form>
