@@ -5,7 +5,7 @@ const Category = require('../../models/category')
 const { getDate } = require('../../public/javascript/functions')
 
 router.get('/', (req, res) => {
-  const { filteredCategory } = req.query
+  const { filteredCategory, filteredMonth } = req.query
   const userId = req.user._id
   let query = ''
   if (filteredCategory === undefined || filteredCategory === "") {
@@ -22,7 +22,14 @@ router.get('/', (req, res) => {
 
   Promise.all([Record.find(query).lean().sort('-date'), Category.find().lean()])
     .then(results => {
-      const [records, categories] = results
+      let [records, categories] = results
+      if (filteredMonth) {
+        records = records.filter((record) => {
+          const date = record.date
+          const recordMonth = String(date.getMonth() + 1)
+          return recordMonth === filteredMonth
+        })
+      }
       const amounts = records.map(record => record.amount)
       const totalAmount = amounts.reduce((sum, current) => sum + current, 0)
 
@@ -31,7 +38,7 @@ router.get('/', (req, res) => {
         record.icon = category.icon
         record.date = getDate(record.date)
       })
-      res.render('index', { records, totalAmount, filteredCategory })
+      res.render('index', { records, totalAmount, filteredCategory, filteredMonth })
     }).catch(err => console.log(err))
 })
 
